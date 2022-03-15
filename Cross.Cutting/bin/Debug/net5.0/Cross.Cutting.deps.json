@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "Cross.Cutting/1.0.0": {
+        "runtime": {
+          "Cross.Cutting.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Cross.Cutting/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

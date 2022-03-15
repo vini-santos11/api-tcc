@@ -1,0 +1,12 @@
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\bin\Debug\net5.0\Cross.Cutting.deps.json
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\bin\Debug\net5.0\Cross.Cutting.dll
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\bin\Debug\net5.0\ref\Cross.Cutting.dll
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\bin\Debug\net5.0\Cross.Cutting.pdb
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\obj\Debug\net5.0\Cross.Cutting.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\obj\Debug\net5.0\Cross.Cutting.AssemblyInfoInputs.cache
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\obj\Debug\net5.0\Cross.Cutting.AssemblyInfo.cs
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\obj\Debug\net5.0\Cross.Cutting.csproj.CoreCompileInputs.cache
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\obj\Debug\net5.0\Cross.Cutting.dll
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\obj\Debug\net5.0\ref\Cross.Cutting.dll
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\obj\Debug\net5.0\Cross.Cutting.pdb
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting\obj\Debug\net5.0\Cross.Cutting.csproj.AssemblyReference.cache

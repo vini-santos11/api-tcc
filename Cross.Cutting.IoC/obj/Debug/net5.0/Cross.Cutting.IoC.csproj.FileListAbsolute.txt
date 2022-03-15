@@ -1,0 +1,12 @@
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\bin\Debug\net5.0\Cross.Cutting.IoC.deps.json
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\bin\Debug\net5.0\Cross.Cutting.IoC.dll
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\bin\Debug\net5.0\ref\Cross.Cutting.IoC.dll
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\bin\Debug\net5.0\Cross.Cutting.IoC.pdb
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\obj\Debug\net5.0\Cross.Cutting.IoC.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\obj\Debug\net5.0\Cross.Cutting.IoC.AssemblyInfoInputs.cache
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\obj\Debug\net5.0\Cross.Cutting.IoC.AssemblyInfo.cs
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\obj\Debug\net5.0\Cross.Cutting.IoC.csproj.CoreCompileInputs.cache
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\obj\Debug\net5.0\Cross.Cutting.IoC.dll
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\obj\Debug\net5.0\ref\Cross.Cutting.IoC.dll
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\obj\Debug\net5.0\Cross.Cutting.IoC.pdb
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Cross.Cutting.IoC\obj\Debug\net5.0\Cross.Cutting.IoC.csproj.AssemblyReference.cache
