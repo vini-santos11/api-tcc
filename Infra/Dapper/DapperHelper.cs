@@ -1,4 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
+using Domain.PageQuerys.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,34 @@ namespace Infra.Dapper
                 sql.Append($"{operador} {key.Name} = @{key.Name}");
                 operador = "   And";
             }
+
+            return sql;
+        }
+
+        public static StringBuilder PaginatedFilter(StringBuilder sqlBuilder, BaseQuery pageQuery, string sortColumn)
+        {
+            var sql = new StringBuilder();
+            sql.Append(" Select * ");
+            sql.Append($"  From ( {sqlBuilder} ) tab");
+
+            if (!string.IsNullOrEmpty(pageQuery.Order))
+                sql.Append($"  Order By {pageQuery.Order.ToUpper()} {pageQuery.Sort} ");
+            else if (!string.IsNullOrEmpty(sortColumn))
+                sql.Append($"  Order By {sortColumn} ");
+
+            if ((pageQuery.Pagination == EPagination.YES) && (pageQuery.Size > 0))
+                sql.Append($"   Offset {pageQuery.Size} * ({pageQuery.Page} - 1) Rows Fetch Next {pageQuery.Size} Rows Only");
+
+            return sql;
+        }
+
+        public static StringBuilder CountPageData(StringBuilder sqlBuilder)
+        {
+            var sql = new StringBuilder();
+            sql.Append(" Select Count(1) ");
+            sql.Append("   From ( ");
+            sql.Append(sqlBuilder.ToString());
+            sql.Append("        ) tab ");
 
             return sql;
         }
