@@ -4,4 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Commands\" />
+    <Folder Include="Enumerables\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Querys\" />
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
