@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "iISK1cwmEhW1XhKWH49O3QHClip3aPdUIC/iKXBNTmX4jO4XG6hdPsBcSyK53b54J9LjFTUjExvfgNGDK/1VuQ==",
+  "dgSpecHash": "1owOeVNZOSmnGTduof5ZnecoNj9OBsxudVYlGSSrxa+3otKZ3B/j1UqH3x7Ls9GUWFr1byAscrTA2xvkJPhF6A==",
   "success": true,
   "projectFilePath": "C:\\Users\\marcus.vinicius\\Documents\\Projetos Facul\\TCC.API\\Infra\\Infra.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marcus.vinicius\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
+    "C:\\Users\\marcus.vinicius\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
+    "C:\\Users\\marcus.vinicius\\.nuget\\packages\\dapper.contrib\\2.0.78\\dapper.contrib.2.0.78.nupkg.sha512",
     "C:\\Users\\marcus.vinicius\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",
     "C:\\Users\\marcus.vinicius\\.nuget\\packages\\k4os.compression.lz4\\1.2.6\\k4os.compression.lz4.1.2.6.nupkg.sha512",
     "C:\\Users\\marcus.vinicius\\.nuget\\packages\\k4os.compression.lz4.streams\\1.2.6\\k4os.compression.lz4.streams.1.2.6.nupkg.sha512",
