@@ -1,3 +1,4 @@
+using DbUp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,6 +45,17 @@ namespace Application
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Application v1"));
             }
+
+            var connectionString = Configuration.GetConnectionString("Connection");
+            EnsureDatabase.For.MySqlDatabase(connectionString);
+            var upgrader = DeployChanges.To.MySqlDatabase(connectionString)
+                .WithScriptsFromFileSystem(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Scripts"))
+                .Build();
+
+            var result = upgrader.PerformUpgrade();
+
+            if (!result.Successful)
+                throw new Exception("Failed to update database.");
 
             app.UseHttpsRedirection();
 
