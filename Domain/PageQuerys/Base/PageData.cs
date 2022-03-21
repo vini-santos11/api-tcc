@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace BenMais.Domain.Page.Base
+namespace Domain.Page.Base
 {
     public class PageData<T>
     {

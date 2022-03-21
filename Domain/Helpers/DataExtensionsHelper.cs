@@ -1,6 +1,6 @@
 using System;
 
-namespace BenMais.Domain.Helpers
+namespace Domain.Helpers
 {
     public static class DataExtensionsHelper
     {

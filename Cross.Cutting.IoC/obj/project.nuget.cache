@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "TGN7+U+1hrI4R8VggWK3ChYDvaW3CKrc2TBS1LQRnv764659Uw/A3vs0NIz8oxuQmiiFh/Ocao0LVgMaRZgbfA==",
+  "dgSpecHash": "mkZPn4TfBin1Qm2eUWHNuMY92SjL/1uzQX4PKybsurwn8qOw0ZYxXgWGx7yy6XG11miq3B4Vib9bJ6Op21oHFg==",
   "success": true,
   "projectFilePath": "C:\\Users\\marcus.vinicius\\Documents\\Projetos Facul\\TCC.API\\Cross.Cutting.IoC\\Cross.Cutting.IoC.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\marcus.vinicius\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\6.0.0\\microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
+    "C:\\Users\\marcus.vinicius\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512",
+    "C:\\Users\\marcus.vinicius\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
+  ],
   "logs": []
 }

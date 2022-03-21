@@ -1,5 +1,5 @@
-﻿using BenMais.Domain.Helpers;
-using BenMais.Domain.Page.Base;
+﻿using Domain.Helpers;
+using Domain.Page.Base;
 using System;
 using System.Text.Json.Serialization;
 
