@@ -10,3 +10,6 @@ C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Domain\obj\Debug\net5.
 C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Domain\obj\Debug\net5.0\ref\Domain.dll
 C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Domain\obj\Debug\net5.0\Domain.pdb
 C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Domain\obj\Debug\net5.0\Domain.csproj.AssemblyReference.cache
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Domain\bin\Debug\net5.0\Cross.Cutting.dll
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Domain\bin\Debug\net5.0\Cross.Cutting.pdb
+C:\Users\marcus.vinicius\Documents\Projetos Facul\TCC.API\Domain\obj\Debug\net5.0\Domain.csproj.CopyComplete

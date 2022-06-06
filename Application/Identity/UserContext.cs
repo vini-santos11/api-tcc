@@ -1,4 +1,5 @@
 ﻿using Cross.Cutting.IoC;
+using Domain.Enumerables;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Application.Identity
 
         public string LastName => ClaimType(_accessor.HttpContext.User.Claims, ClaimTypes.Surname);
 
-        //public ERoles Role => ERoles.FindByName<ERoles>(ClaimType(_accessor.HttpContext.User.Claims, ClaimTypes.Role));
+        public ERoles Role => ERoles.FindByName<ERoles>(ClaimType(_accessor.HttpContext.User.Claims, ClaimTypes.Role));
 
     }
 }
