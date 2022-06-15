@@ -4,7 +4,7 @@ using System;
 
 namespace Domain.Models
 {
-    [Table("dbo.App_Contact")]
+    [Table("db_tcc.App_Contact")]
     public class AppContact : UpdatedModel
     {
         [Key]

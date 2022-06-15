@@ -1,5 +1,6 @@
 ﻿using Application.Converters;
 using Application.Identity;
+using Application.Middlewares;
 using Cross.Cutting.Identity.Describers;
 using Cross.Cutting.IoC;
 using CrossCutting.Configurations;
@@ -206,12 +207,16 @@ namespace Application
             if (!result.Successful)
                 throw new Exception("Failed to update database.");
 
+            app.UseMiddleware(typeof(ExceptionMiddleware));
 
             app.UseRouting();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().WithExposedHeaders(HeaderNames.ContentDisposition));
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
+
+            app.UseResponseCaching();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

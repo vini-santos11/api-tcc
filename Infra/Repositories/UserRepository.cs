@@ -3,6 +3,7 @@ using Domain.Helpers;
 using Domain.Interfaces;
 using Domain.Interfaces.Repositories;
 using Domain.Models;
+using Domain.Querys;
 using Infra.Repositories.Base;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -102,6 +103,16 @@ namespace Infra.Repositories
             sql.Append("  Where Upper(rol.Role) = @RoleName");
 
             return QueryToList<AppUser>(sql, new { RoleName = roleName.ToUpperInvariant() }).ToList();
+        }
+        public NameQuery FindLoginById(long id)
+        {
+            var sql = new StringBuilder();
+            sql.Append(" Select con.Name, ");
+            sql.Append("        con.SecondName ");
+            sql.Append("   From App_Contact con ");
+            sql.Append("  Where con.Id = @Id ");
+
+            return QuerySingleOrDefault<NameQuery>(sql, new { id });
         }
 
         public Task<AppUser> FindByIdAsync(string userId, CancellationToken cancellationToken)

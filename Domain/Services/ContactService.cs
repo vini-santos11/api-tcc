@@ -3,19 +3,29 @@ using Domain.Commands.User;
 using Domain.Exceptions;
 using Domain.Interfaces.Repositories;
 using Domain.Models;
+using Domain.Querys;
 
 namespace Domain.Services
 {
     public class ContactService
     {
         public IContactRepository ContactRepository { get; set; }
-        public ContactService(IContactRepository contactRepository)
+        public IUserRepository UserRepository { get; set; }
+        public ContactService(
+            IContactRepository contactRepository,
+            IUserRepository userRepository)
         {
             ContactRepository = contactRepository;
+            UserRepository = userRepository;
         }
         public AppContact FindByDocumentNumber(string documentNumber)
         {
             return ContactRepository.FindByDocumentNumber(documentNumber);
+        }
+
+        public NameQuery FindLoginById(long id)
+        {
+            return UserRepository.FindLoginById(id);
         }
 
         public ContactCommand RegisterCommandToContactCommand(RegisterCommand command)
@@ -53,9 +63,11 @@ namespace Domain.Services
 
         public AppContact CreateContact(ContactCommand command)
         {
-            var contact = FindByDocumentNumber(command.DocumentNumber) ?? throw new ValidateException(Messages.AlreadyRegisteredUser);
-            
-            if(contact == null)
+            var contact = FindByDocumentNumber(command.DocumentNumber);
+
+            if(contact != null)
+                throw new ValidateException(Messages.AlreadyRegisteredUser);
+            else
             {
                 contact = ContactRepository.Add(new AppContact
                 {

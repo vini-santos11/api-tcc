@@ -2,7 +2,7 @@
 
 namespace Domain.Models
 {
-    [Table("dbo.App_UserRole")]
+    [Table("db_tcc.App_UserRole")]
     public class AppUserRole
     {
         [Key]

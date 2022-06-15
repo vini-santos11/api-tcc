@@ -2,7 +2,7 @@
 
 namespace Domain.Models
 {
-    [Table("dbo.App_Role")]
+    [Table("db_tcc.App_Role")]
     public class AppRole
     {
         [ExplicitKey]

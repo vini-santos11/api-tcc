@@ -62,6 +62,7 @@ namespace Domain.Services
         {
             var createDate = DateTime.Now;
             var expirationDate = createDate.AddSeconds(TokenConfiguration.Seconds);
+            var contact = ContactService.FindLoginById(user.Id);
 
             var claims = new List<Claim>()
             {
@@ -69,8 +70,8 @@ namespace Domain.Services
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
                 new Claim(JwtRegisteredClaimNames.Iat, createDate.ToString("yyyy-MM-dd HH:mm:ss")),
                 new Claim(JwtRegisteredClaimNames.Exp, expirationDate.ToString("yyyy-MM-dd HH:mm:ss")),
-                new Claim(ClaimTypes.GivenName, user.Name ?? string.Empty),
-                new Claim(ClaimTypes.Surname, user.Surname ?? string.Empty),
+                new Claim(ClaimTypes.GivenName, contact.Name ?? string.Empty),
+                new Claim(ClaimTypes.Surname, contact.SecondName ?? string.Empty),
                 new Claim(ClaimTypes.UserData, Convert.ToString(user.Id)),
                 new Claim(ClaimTypes.NameIdentifier, Convert.ToString(user.Id)),
                 new Claim(ClaimTypes.Role, role?.Name ?? string.Empty)
@@ -105,7 +106,7 @@ namespace Domain.Services
             var tokenSource = new CancellationTokenSource();
             try
             {
-                var user = await UserRepository.FindByNameAsync(login, tokenSource.Token) ?? throw new Exception();
+                var user = await UserRepository.FindByNameAsync(login, tokenSource.Token) ?? throw new ForbiddenedException();
 
                 if (UserManager.IsLockedOutAsync(user).Result)
                     throw new ValidateException(Messages.BlockedUser);
@@ -162,11 +163,11 @@ namespace Domain.Services
             if (string.IsNullOrEmpty(command.Password))
                 throw MessageRequired("Senha");
 
-            using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-            var tokenSource = new CancellationTokenSource();
+            //using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+            //var tokenSource = new CancellationTokenSource();
             try
             {
-                var user = await UserRepository.FindByNameAsync(command.DocumentNumber, tokenSource.Token);
+                var user = await UserRepository.FindByNameAsync(command.DocumentNumber, new CancellationToken());
                 if (user != null)
                     throw new ValidateException(Messages.AlreadyRegisteredUser);
 
@@ -190,18 +191,18 @@ namespace Domain.Services
                 var userRole = new AppUserRole
                 {
                     UserId = user.Id,
-                    RoleId = ERoles.User.Id
+                    RoleId = ERoles.Admin.Id
                 };
 
                 if (!UserRoleRepository.Exists(userRole))
                     UserRoleRepository.Add(userRole);
 
-                scope.Complete();
-                return await Task.FromResult(GenerateToken(user, ERoles.User));
+                //scope.Complete();
+                return await Task.FromResult(GenerateToken(user, ERoles.Admin));
             }
             finally
             {
-                tokenSource.Dispose();
+                //tokenSource.Dispose();
             }
         }
 
