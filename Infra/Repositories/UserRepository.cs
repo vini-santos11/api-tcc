@@ -73,7 +73,7 @@ namespace Infra.Repositories
         private IList<string> FindRolesByUserId(long id)
         {
             var sql = new StringBuilder();
-            sql.Append(" Select Upper(rol.Role) As Role ");
+            sql.Append(" Select Upper(rol.Description) As Role ");
             sql.Append("   From App_UserRole uro ");
             sql.Append("  Inner Join App_Role rol on (rol.Id = uro.RoleId) ");
             sql.Append("  Where uro.UserId = @Id");
@@ -88,7 +88,7 @@ namespace Infra.Repositories
             sql.Append("   From App_UserRole uro ");
             sql.Append("  Inner Join App_Role rol on (rol.Id = uro.RoleId) ");
             sql.Append("  Where uro.UserId = @UserId");
-            sql.Append("    And Upper(rol.Role) = @RoleName");
+            sql.Append("    And Upper(rol.Description) = @RoleName");
 
             return QueryFirstOrDefault<bool>(sql, new { userId, RoleName = roleName.ToUpperInvariant() });
         }
@@ -100,7 +100,7 @@ namespace Infra.Repositories
             sql.Append("   From App_User usr ");
             sql.Append("  Inner Join App_UserRole uro on (uro.UserID = usr.Id) ");
             sql.Append("  Inner Join App_Role rol on (rol.Id = uro.RoleId) ");
-            sql.Append("  Where Upper(rol.Role) = @RoleName");
+            sql.Append("  Where Upper(rol.Description) = @RoleName");
 
             return QueryToList<AppUser>(sql, new { RoleName = roleName.ToUpperInvariant() }).ToList();
         }
