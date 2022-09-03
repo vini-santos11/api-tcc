@@ -1,5 +1,7 @@
 ﻿using Dapper;
 using Domain.Interfaces;
+using Domain.Page.Base;
+using Domain.PageQuerys.Base;
 using Infra.Dapper;
 using System;
 using System.Collections.Generic;
@@ -47,6 +49,34 @@ namespace Infra.Repositories.Base
         {
             var result = DBContext.Connection.Query<TQuery>(sql.ToString(), param, transaction, true, timeout);
             return result;
+        }
+
+        public Task<PageData<TQuery>> PageData<TQuery>(StringBuilder sql, BaseQuery pageQuery, string sortColumn, object param = null, IDbTransaction transaction = null)
+        {
+            var pageData = new PageData<TQuery>
+            {
+                Data = new List<TQuery>()
+            };
+
+            param ??= pageQuery;
+
+            if (pageQuery.Execution == EExecution.PAGE)
+            {
+                var temporarySql = DapperHelper<TEntity>.PaginatedFilter(sql, pageQuery, sortColumn);
+                pageData.Data = DBContext.Connection.Query<TQuery>(temporarySql.ToString(), param, transaction, true, 600);
+            }
+            if ((pageQuery.Size > 0) && ((pageQuery.Pagination == EPagination.YES) || (pageQuery.Execution == EExecution.COUNT)))
+            {
+                var temporarySql = DapperHelper<TEntity>.CountPageData(sql);
+                pageData.Total = DBContext.Connection.QuerySingle<int>(temporarySql.ToString(), param, transaction, 600);
+            }
+            else
+                pageData.Total = pageData.Data.Count();
+
+            pageData.Page = pageQuery.Page;
+            pageData.Size = pageQuery.Size;
+
+            return Task.FromResult(pageData);
         }
 
         public virtual TEntity FormatModel(TEntity model)

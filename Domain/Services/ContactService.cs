@@ -3,7 +3,10 @@ using Domain.Commands.User;
 using Domain.Exceptions;
 using Domain.Interfaces.Repositories;
 using Domain.Models;
+using Domain.Page.Base;
+using Domain.PageQuerys;
 using Domain.Querys;
+using System.Threading.Tasks;
 
 namespace Domain.Services
 {
@@ -18,6 +21,11 @@ namespace Domain.Services
             ContactRepository = contactRepository;
             UserRepository = userRepository;
         }
+        public Task<PageData<AppContact>> FindAllContacts(PageQuery pageQuery)
+        {
+            return ContactRepository.FindAllContacts(pageQuery);
+        }
+
         public AppContact FindByDocumentNumber(string documentNumber)
         {
             return ContactRepository.FindByDocumentNumber(documentNumber);
@@ -107,6 +115,13 @@ namespace Domain.Services
             ContactRepository.Update(contact);
 
             return contact;
+        }
+
+        public void DeleteContact(long id)
+        {
+            var contact = ContactRepository.Find(id) ?? throw new ValidateException(Messages.ContactNotFound);
+
+            ContactRepository.Remove(contact);
         }
     }
 }
