@@ -31,6 +31,14 @@ namespace Application.Controllers
             return Ok(await ContactService.FindAllContacts(pageQuery));
         }
 
+        [HttpGet("{id}")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        public ActionResult<AppContact> FindContactById([FromRoute] long id)
+        {
+            return Ok(ContactService.FindContactById(id));
+        }
+
         [HttpPost()]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]

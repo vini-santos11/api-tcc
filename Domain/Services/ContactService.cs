@@ -26,6 +26,11 @@ namespace Domain.Services
             return ContactRepository.FindAllContacts(pageQuery);
         }
 
+        public AppContact FindContactById(long id)
+        {
+            return ContactRepository.Find(id) ?? throw new ValidateException(Messages.ContactNotFound);
+        }
+
         public AppContact FindByDocumentNumber(string documentNumber)
         {
             return ContactRepository.FindByDocumentNumber(documentNumber);
