@@ -4,6 +4,7 @@ using Domain.Commands.Contact;
 using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
+using Domain.Querys.Contact;
 using Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace Application.Controllers
         [HttpGet]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public async Task<ActionResult<PageData<AppContact>>> FindAllContacts([FromQuery] PageQuery pageQuery)
+        public async Task<ActionResult<PageData<ContactQuery>>> FindAllContacts([FromQuery] PageQuery pageQuery)
         {
             return Ok(await ContactService.FindAllContacts(pageQuery));
         }

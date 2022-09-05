@@ -6,6 +6,7 @@ using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
 using Domain.Querys;
+using Domain.Querys.Contact;
 using System.Threading.Tasks;
 
 namespace Domain.Services
@@ -21,7 +22,7 @@ namespace Domain.Services
             ContactRepository = contactRepository;
             UserRepository = userRepository;
         }
-        public Task<PageData<AppContact>> FindAllContacts(PageQuery pageQuery)
+        public Task<PageData<ContactQuery>> FindAllContacts(PageQuery pageQuery)
         {
             return ContactRepository.FindAllContacts(pageQuery);
         }

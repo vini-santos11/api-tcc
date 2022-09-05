@@ -1,13 +1,14 @@
 ﻿using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
+using Domain.Querys.Contact;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Repositories
 {
     public interface IContactRepository : ICrudRepository<long, AppContact>
     {
-        Task<PageData<AppContact>> FindAllContacts(PageQuery pageQuery);
+        Task<PageData<ContactQuery>> FindAllContacts(PageQuery pageQuery);
         AppContact FindByDocumentNumber(string documentNumber);
     }
 }

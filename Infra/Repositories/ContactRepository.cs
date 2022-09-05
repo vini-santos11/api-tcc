@@ -3,6 +3,7 @@ using Domain.Interfaces.Repositories;
 using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
+using Domain.Querys.Contact;
 using Infra.Repositories.Base;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace Infra.Repositories
 
         }
 
-        public Task<PageData<AppContact>> FindAllContacts(PageQuery pageQuery)
+        public Task<PageData<ContactQuery>> FindAllContacts(PageQuery pageQuery)
         {
             var sql = new StringBuilder();
             sql.Append("SELECT con.Id, ");
@@ -27,15 +28,17 @@ namespace Infra.Repositories
             sql.Append("       con.Phone, ");
             sql.Append("       con.Address, ");
             sql.Append("       con.Email, ");
+            sql.Append("       pty.Description as PersonType, ");
             sql.Append("       con.ImageUrl, ");
             sql.Append("       con.ImageName ");
             sql.Append("  FROM db_tcc.App_Contact con ");
-            //sql.Append(" Where (con.PersonTypeId Like @Query Or ");
-            //sql.Append("        con.Name Like @Query Or ");
-            //sql.Append("        con.DocumentNumber @Query Or ");
-            //sql.Append("        con.Email @Query)");  
+            sql.Append(" Inner Join App_PersonType pty on (pty.Id = con.PersonTypeId) ");
+            sql.Append(" Where (pty.Description Like @Query Or ");
+            sql.Append("        con.Name Like @Query Or ");
+            sql.Append("        con.DocumentNumber Like @Query Or ");
+            sql.Append("        con.Email Like @Query)");
 
-            return PageData<AppContact>(sql, pageQuery, "Name");
+            return PageData<ContactQuery>(sql, pageQuery, "Name");
         }
 
         public AppContact FindByDocumentNumber(string documentNumber)
