@@ -89,7 +89,7 @@ namespace Domain.Services
                     SecondName = command.SecondName,
                     Gender = command.Gender,
                     DocumentNumber = command.DocumentNumber,
-                    Birthdate = command.Birthdate.GetValueOrDefault(),
+                    Birthdate = command.Birthdate,
                     Email = command.Email,
                     Address = command.Address,
                     Phone = command.Phone,
@@ -109,7 +109,7 @@ namespace Domain.Services
             contact.Name = command.Name;
             contact.SecondName = command.SecondName;
             contact.Address = command.Address;
-            contact.Birthdate = command.Birthdate.GetValueOrDefault();
+            contact.Birthdate = command.Birthdate;
             contact.DocumentNumber = command.DocumentNumber;
             contact.Email = command.Email;
             contact.Gender = command.Gender;

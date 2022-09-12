@@ -1,6 +1,7 @@
 ﻿using Application.Controllers.Base;
 using Application.Identity;
 using Domain.Commands.Contact;
+using Domain.Exports.Excel;
 using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
@@ -38,6 +39,14 @@ namespace Application.Controllers
         public ActionResult<AppContact> FindContactById([FromRoute] long id)
         {
             return Ok(ContactService.FindContactById(id));
+        }
+
+        [HttpGet("export")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        public async Task<ActionResult> ExportListContacts([FromQuery] PageQuery pageQuery)
+        {
+            return await ExportFile(new ContactExcel(ContactService, pageQuery));
         }
 
         [HttpPost()]
