@@ -5,7 +5,7 @@ using System;
 namespace Domain.Models
 {
     [Table("db_tcc.App_Transaction")]
-    public class App_Transaction : CreatedModel
+    public class AppTransaction : CreatedModel
     {
         [Key]
         public long Id { get; set; }

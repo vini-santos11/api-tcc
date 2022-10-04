@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Interfaces\Repositories\IMeansurementRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Exports\Excel\Template\template.xlsx" />
   </ItemGroup>
 

@@ -4,7 +4,7 @@ using Domain.Models.Base;
 namespace Domain.Models
 {
     [Table("db_tcc.App_StockMovement")]
-    public class App_StockMovement : CreatedModel
+    public class AppStockMovement : CreatedModel
     {
         [Key]
         public long Id { get; set; }
