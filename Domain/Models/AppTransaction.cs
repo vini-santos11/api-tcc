@@ -1,6 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
 using Domain.Models.Base;
-using System;
 
 namespace Domain.Models
 {
@@ -11,7 +10,5 @@ namespace Domain.Models
         public long Id { get; set; }
         public long ContactOriginId { get; set; }
         public long ContactDestinationId { get; set; }
-        public double TotalPrice { get; set; }
-        public DateTime? DataTransaction { get; set; }
     }
 }

@@ -1,13 +1,7 @@
-﻿using Dapper.Contrib.Extensions;
-using Domain.Models.Base;
-
-namespace Domain.Models
+﻿namespace Domain.Commands.Product
 {
-    [Table("db_tcc.App_Product")]
-    public class AppProduct : CreatedModel
+    public class ProductCommand
     {
-        [Key]
-        public long Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string DefaultMeansurement { get; set; }

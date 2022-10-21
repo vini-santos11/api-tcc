@@ -25,7 +25,6 @@ namespace Domain.Querys.Contact
         public string Email { get; set; }
         [Excel(ColumnTitle = "Fisíca ou Jurídica")]
         public string PersonType { get; set; }
-        public string ImageUrl { get; set; }
         public string ImageName { get; set; }
     }
 }

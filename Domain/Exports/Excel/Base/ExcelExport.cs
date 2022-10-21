@@ -450,9 +450,9 @@ namespace Domain.Exports.Excel.Base
                     openXmlWriter.WriteEndElement();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                throw new ValidateException(Messages.FailureConvertDataToExcel);
+                throw new ValidateException(Messages.FailureConvertDataToExcel + " " + ex);
             }
         }
 

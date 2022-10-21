@@ -13,12 +13,15 @@ namespace Domain.Services
 {
     public class ContactService
     {
+        public IUserRoleRepository UserRoleRepository { get; set; }
         public IContactRepository ContactRepository { get; set; }
         public IUserRepository UserRepository { get; set; }
         public ContactService(
+            IUserRoleRepository userRoleRepository,
             IContactRepository contactRepository,
             IUserRepository userRepository)
         {
+            UserRoleRepository = userRoleRepository;
             ContactRepository = contactRepository;
             UserRepository = userRepository;
         }
@@ -126,6 +129,17 @@ namespace Domain.Services
         public void DeleteContact(long id)
         {
             var contact = ContactRepository.Find(id) ?? throw new ValidateException(Messages.ContactNotFound);
+            var user = UserRepository.Find(id) ?? throw new ValidateException(Messages.UserNotFound);
+
+            if(user != null)
+            {
+                var roles = UserRoleRepository.FindUserRoleByUserId(user.Id);
+
+                foreach (var role in roles)
+                    UserRoleRepository.Remove(role);
+
+                UserRepository.Remove(user);
+            }
 
             ContactRepository.Remove(contact);
         }

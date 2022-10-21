@@ -1,11 +1,11 @@
 ﻿using Application.Controllers.Base;
 using Application.Identity;
-using Domain.Commands.Contact;
+using Domain.Commands.Product;
 using Domain.Exports.Excel;
 using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
-using Domain.Querys.Contact;
+using Domain.Querys.Product;
 using Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,61 +16,61 @@ namespace Application.Controllers
 {
     [Authorize]
     [Roles(Role.ADMIN)]
-    [Route("contact")]
-    public class ContactController : BaseController
+    [Route("product")]
+    public class ProductController : BaseController
     {
-        public ContactService ContactService { get; }
-        public ContactController(ContactService contactService)
+        public ProductService ProductService { get; }
+        public ProductController(ProductService productService)
         {
-            ContactService = contactService;
+            ProductService = productService;
         }
 
         [HttpGet]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public async Task<ActionResult<PageData<ContactQuery>>> FindAllContacts([FromQuery] PageQuery pageQuery)
+        public async Task<ActionResult<PageData<ProductQuery>>> FindAllProducts([FromQuery] PageQuery pageQuery)
         {
-            return Ok(await ContactService.FindAllContacts(pageQuery));
+            return Ok(await ProductService.FindAllProducts(pageQuery));
         }
 
         [HttpGet("{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public ActionResult<AppContact> FindContactById([FromRoute] long id)
+        public ActionResult<AppProduct> FindProductById([FromRoute] long id)
         {
-            return Ok(ContactService.FindContactById(id));
+            return Ok(ProductService.FindProductById(id));
         }
 
         [HttpGet("export")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public async Task<ActionResult> ExportListContacts([FromQuery] PageQuery pageQuery)
+        public async Task<ActionResult> ExportListProducts([FromQuery] PageQuery pageQuery)
         {
-            return await ExportFile(new ContactExcel(ContactService, pageQuery));
+            return await ExportFile(new ProductExcel(ProductService, pageQuery));
         }
 
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public ActionResult<AppContact> CreateContact([FromBody] ContactCommand command)
+        public ActionResult<AppProduct> CreateProduct([FromBody] ProductCommand command)
         {
-            return Ok(ContactService.CreateContact(command));
+            return Ok(ProductService.CreateProduct(command));
         }
 
         [HttpPut("{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public ActionResult<AppContact> UpdateContact([FromRoute] long id, [FromBody] ContactCommand command)
+        public ActionResult<AppProduct> UpdateProduct([FromRoute] long id, [FromBody] ProductCommand command)
         {
-            return Ok(ContactService.UpdateContact(id, command));
+            return Ok(ProductService.UpdateProduct(id, command));
         }
 
         [HttpDelete("{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public ActionResult DeleteContact([FromRoute] long id)
+        public ActionResult DeleteProduct([FromRoute] long id)
         {
-            ContactService.DeleteContact(id);
+            ProductService.DeleteProduct(id);
             return Ok();
         }
     }

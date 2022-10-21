@@ -10,6 +10,8 @@
         public static string AlreadyRegisteredUser { get => "Já existe um cadastro para este documento."; }
         public static string ErrorRegisteringUser { get => "Erro ao cadastrar usuário."; }
         public static string ContactNotFound { get => "Contato não encontrado."; }
+        public static string UserNotFound { get => "Usuário não encontrado"; }
+        public static string ProductNotFound { get => "Produto não encontrado."; }
         public static string FailureConvertDataToExcel { get => "Falha ao converter dados para excel."; }
     }
 }
