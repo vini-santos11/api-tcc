@@ -4,9 +4,13 @@ namespace Domain.Enumerables
 {
     public enum EOperation
     {
-        [Description("Entrada")]
-        Entrada = 1,
-        [Description("Saída")]
-        Saida = 2
+        [Description("Compra")]
+        Compra = 1,
+        [Description("Produção")]
+        Producao = 2,
+        [Description("Venda")]
+        Venda = 3,
+        [Description("Consumo")]
+        Consumo = 4
     }
 }

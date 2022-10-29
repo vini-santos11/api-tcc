@@ -8,7 +8,10 @@ namespace Domain.Models
     {
         [Key]
         public long Id { get; set; }
-        public long ContactOriginId { get; set; }
-        public long ContactDestinationId { get; set; }
+        public long? ContactOriginId { get; set; }
+        public long? ContactDestinationId { get; set; }
+        public long OperationId { get; set; }
+        public decimal TotalPrice { get; set; }
+        public decimal Amount { get; set; }
     }
 }

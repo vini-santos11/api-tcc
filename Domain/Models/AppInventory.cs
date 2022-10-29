@@ -4,12 +4,12 @@ using Domain.Models.Base;
 namespace Domain.Models
 {
     [Table("db_tcc.App_Inventory")]
-    public class AppInventory : CreatedModel
+    public class AppInventory : UpdatedModel
     {
         [Key]
 
         public long Id { get; set; }
         public long ProductId { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
     }
 }
