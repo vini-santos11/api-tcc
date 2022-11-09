@@ -11,6 +11,7 @@ using Domain.Querys.Inventory;
 using Domain.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
 

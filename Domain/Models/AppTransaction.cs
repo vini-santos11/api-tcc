@@ -11,6 +11,7 @@ namespace Domain.Models
         public long? ContactOriginId { get; set; }
         public long? ContactDestinationId { get; set; }
         public long OperationId { get; set; }
+        public long ProductId { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal Amount { get; set; }
     }

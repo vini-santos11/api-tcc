@@ -13,6 +13,8 @@
         public static string UserNotFound { get => "Usuário não encontrado"; }
         public static string ProductNotFound { get => "Produto não encontrado."; }
         public static string FailureConvertDataToExcel { get => "Falha ao converter dados para excel."; }
-        public static string ContactIsNotLegal { get => "Só é possível compra de fornecedores"; }
+        public static string ContactIsNotLegal { get => "Só é possível compra de fornecedores."; }
+        public static string HasNotProduct { get => "Não há um ou mais destes produtos no estoque."; }
+        public static string InvalidAmount { get => "Não há esta quantidade de produtos no estoque."; }
     }
 }

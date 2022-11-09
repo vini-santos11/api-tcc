@@ -1,4 +1,5 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Helpers;
+using Domain.Interfaces;
 using Domain.Interfaces.Repositories;
 using Domain.Models;
 using Domain.Page.Base;
@@ -40,6 +41,16 @@ namespace Infra.Repositories
             sql.Append("  WHERE pro.Name like @Query ");
 
             return PageData<InventoryQuery>(sql, pageQuery, "Name");
+        }
+
+        public bool ExistsByProduct(List<long> productId)
+        {
+            var sql = new StringBuilder();
+            sql.Append(" Select Case Count(0) When 0 Then 0 Else 1 End as Founded ");
+            sql.Append("   From db_tcc.App_Inventory inv ");
+            sql.Append($"  Where inv.ProductId in ({FormatHelper.ListToText(productId)}) ");
+
+            return QuerySingleOrDefault<bool>(sql, new { productId });
         }
     }
 }

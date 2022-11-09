@@ -25,6 +25,7 @@ namespace Cross.Cutting.IoC
             services.AddScoped<ContactService>();
             services.AddScoped<ProductService>();
             services.AddScoped<InventoryService>();
+            services.AddScoped<MovementHistoryService>();
         }
 
         public static void AddRepositories(IServiceCollection services)

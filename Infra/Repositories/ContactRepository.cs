@@ -1,10 +1,14 @@
-﻿using Domain.Interfaces;
+﻿using Domain.Enumerables;
+using Domain.Interfaces;
 using Domain.Interfaces.Repositories;
 using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
 using Domain.Querys.Contact;
+using Domain.Querys.History;
 using Infra.Repositories.Base;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,6 +53,23 @@ namespace Infra.Repositories
             sql.Append("  Where con.DocumentNumber = @DocumentNumber ");
 
             return QuerySingleOrDefault<AppContact>(sql, new { documentNumber });
+        }
+
+        public IEnumerable<MovementHistoryQuery> FindCustomerPurchase(long contactId)
+        {
+            var sql = new StringBuilder();
+            sql.Append(" SELECT pro.Id as ProductId, ");
+            sql.Append("        pro.Name as Product, ");
+            sql.Append("        trn.TotalPrice, ");
+            sql.Append("        trn.CreatedAt as BuyDate ");
+            sql.Append("   FROM db_tcc.App_Contact con ");
+            sql.Append("  INNER JOIN db_tcc.App_Transaction trn on (con.Id = trn.ContactDestinationId) ");
+            sql.Append("  INNER JOIN db_tcc.App_Product pro on (pro.Id = trn.ProductId) ");
+            sql.Append($"  WHERE trn.OperationId = {(int)EOperation.Venda} ");
+            sql.Append("     AND con.Id = @ContactId ");
+            sql.Append("   ORDER BY trn.CreatedAt desc  ");
+
+            return QueryToList<MovementHistoryQuery>(sql, new { contactId }).ToList();
         }
     }
 }

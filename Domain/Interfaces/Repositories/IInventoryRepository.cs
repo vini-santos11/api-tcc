@@ -2,6 +2,7 @@
 using Domain.Page.Base;
 using Domain.PageQuerys;
 using Domain.Querys.Inventory;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Domain.Interfaces.Repositories
@@ -10,5 +11,6 @@ namespace Domain.Interfaces.Repositories
     {
         AppInventory FindByProduct(long productId);
         Task<PageData<InventoryQuery>> FindInventory(PageQuery pageQuery);
+        bool ExistsByProduct(List<long> productId);
     }
 }

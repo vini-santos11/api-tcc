@@ -6,6 +6,7 @@ using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
 using Domain.Querys.Inventory;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Domain.Services
@@ -35,15 +36,23 @@ namespace Domain.Services
 
         public void InventoryMovement(ProductInventoryCommand command, long userOn)
         {
-            var product = ProductRepository.Find(command.ProductId) ?? throw new ValidateException(Messages.ProductNotFound);
+            List<long> products = new List<long>();
+
+            foreach(var item in command.Products)
+            {
+                products.Add(item.ProductId);
+            }
+
+            if ((command.Operation == EOperation.Venda) && (!InventoryRepository.ExistsByProduct(products)))
+                throw new ValidateException(Messages.HasNotProduct);
 
             if ((command.Operation == EOperation.Compra) || (command.Operation == EOperation.Producao))
-                GenerateBuyTransaction(command, product, userOn);
+                GenerateBuyTransaction(command, userOn);
             else if ((command.Operation == EOperation.Venda) || (command.Operation == EOperation.Consumo))
-                GenerateSellTransaction(command, product, userOn);
+                GenerateSellTransaction(command, userOn);
         }
 
-        public void CreateProductInInventory(EOperation operation, long productId, decimal amount)
+        public void UpdateProductInInventory(EOperation operation, long productId, decimal amount)
         {
             var movement = InventoryRepository.FindByProduct(productId);
 
@@ -60,48 +69,69 @@ namespace Domain.Services
                 if((operation == EOperation.Compra) || operation == EOperation.Producao)
                     movement.Amount = movement.Amount + amount;
                 if((operation == EOperation.Venda) || operation == EOperation.Consumo)
-                    movement.Amount = movement.Amount - amount;
+                {
+                    if (movement.Amount < amount)
+                        throw new ValidateException(Messages.InvalidAmount);
+                    else 
+                        movement.Amount = movement.Amount - amount;
+                }
 
                 InventoryRepository.Update(movement);
             }
         }
 
-        public void GenerateBuyTransaction(ProductInventoryCommand command, AppProduct product, long userOn)
+        public void GenerateBuyTransaction(ProductInventoryCommand command, long userOn)
         {
-            CreateProductInInventory(command.Operation, product.Id, command.Amount);
-
-            if(command.ContactId != null) { 
-                var contact = ContactRepository.Find(command.ContactId.GetValueOrDefault(0)) ?? throw new ValidateException(Messages.ContactNotFound);
-
-                if (contact.PersonTypeId != (int)EPersonType.LegalPerson)
-                    throw new ValidateException(Messages.ContactIsNotLegal);
-            }
-
-            TransactionRepository.Add(new AppTransaction
+            foreach(var item in command.Products)
             {
-                ContactOriginId = command.Operation == EOperation.Compra ? command.ContactId : null,
-                ContactDestinationId = userOn,
-                TotalPrice = (product.Price * command.Amount),
-                Amount = command.Amount,
-                OperationId = command.Operation == EOperation.Compra ? (int)EOperation.Compra : (int)EOperation.Producao
-            });
+                var product = ProductRepository.Find(item.ProductId) ?? throw new ValidateException(Messages.ProductNotFound);
+
+                UpdateProductInInventory(command.Operation, item.ProductId, item.Amount);
+
+                if(command.ContactId != null) { 
+                    var contact = ContactRepository.Find(command.ContactId.GetValueOrDefault(0)) ?? throw new ValidateException(Messages.ContactNotFound);
+
+                    if (contact.PersonTypeId != (int)EPersonType.LegalPerson)
+                        throw new ValidateException(Messages.ContactIsNotLegal);
+                }
+
+                TransactionRepository.Add(new AppTransaction
+                {
+                    ContactOriginId = command.Operation == EOperation.Compra ? command.ContactId : null,
+                    ContactDestinationId = userOn,
+                    TotalPrice = (product.Price * item.Amount),
+                    Amount = item.Amount,
+                    OperationId = command.Operation == EOperation.Compra ? (int)EOperation.Compra : (int)EOperation.Producao,
+                    ProductId = product.Id
+                });
+            }
         }
 
-        public void GenerateSellTransaction(ProductInventoryCommand command, AppProduct product, long userOn)
+        public void GenerateSellTransaction(ProductInventoryCommand command, long userOn)
         {
-            CreateProductInInventory(command.Operation, product.Id, command.Amount);
-
-            if (!ContactRepository.Exists(command.ContactId.GetValueOrDefault(0)))
-                throw new ValidateException(Messages.ContactNotFound);
-
-            TransactionRepository.Add(new AppTransaction
+            foreach(var item in command.Products)
             {
-                ContactDestinationId = command.Operation == EOperation.Venda ? command.ContactId : null,
-                ContactOriginId = userOn,
-                TotalPrice = (product.Price * command.Amount),
-                Amount = command.Amount,
-                OperationId = command.Operation == EOperation.Venda ? (int)EOperation.Venda : (int)EOperation.Producao
-            });
+                var product = ProductRepository.Find(item.ProductId) ?? throw new ValidateException(Messages.ProductNotFound);
+
+                UpdateProductInInventory(command.Operation, product.Id, item.Amount);
+
+                if (!ContactRepository.Exists(command.ContactId.GetValueOrDefault(0)))
+                    throw new ValidateException(Messages.ContactNotFound);
+
+                TransactionRepository.Add(new AppTransaction
+                {
+                    ContactDestinationId = command.Operation == EOperation.Venda ? command.ContactId : null,
+                    ContactOriginId = userOn,
+                    TotalPrice = (product.Price * item.Amount),
+                    Amount = item.Amount,
+                    OperationId = command.Operation == EOperation.Venda ? (int)EOperation.Venda : (int)EOperation.Producao,
+                    ProductId = product.Id
+                });
+
+                var inventory = InventoryRepository.FindByProduct(item.ProductId);
+                if (inventory.Amount <= 0)
+                    InventoryRepository.Remove(inventory);
+            }
         }
     }
 }
