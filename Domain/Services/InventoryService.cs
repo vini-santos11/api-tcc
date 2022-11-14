@@ -115,7 +115,7 @@ namespace Domain.Services
 
                 UpdateProductInInventory(command.Operation, product.Id, item.Amount);
 
-                if (!ContactRepository.Exists(command.ContactId.GetValueOrDefault(0)))
+                if ((command.ContactId.HasValue) && !ContactRepository.Exists(command.ContactId.GetValueOrDefault(0)))
                     throw new ValidateException(Messages.ContactNotFound);
 
                 TransactionRepository.Add(new AppTransaction
