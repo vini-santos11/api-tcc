@@ -1,5 +1,7 @@
 ﻿using Application.Controllers.Base;
 using Application.Identity;
+using Domain.Enumerables;
+using Domain.PageQuerys;
 using Domain.Querys.History;
 using Domain.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -20,12 +22,12 @@ namespace Application.Controllers
             MovementHistoryService = movementHistoryService;
         }
 
-        [HttpGet("purchase/{contactId}")]
+        [HttpGet("operation/history")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public ActionResult<IEnumerable<MovementHistoryQuery>> FindCustomerPurchase([FromRoute] long contactId)
+        public ActionResult<IEnumerable<MovementHistoryQuery>> MovementHistory([FromQuery] HistoryPageQuery query)
         {
-            return Ok(MovementHistoryService.FindCustomerPurchase(contactId));
+            return Ok(MovementHistoryService.FindMovementHistory(query));
         }
     }
 }

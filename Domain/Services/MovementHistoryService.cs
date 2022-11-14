@@ -1,4 +1,6 @@
-﻿using Domain.Interfaces.Repositories;
+﻿using Domain.Enumerables;
+using Domain.Interfaces.Repositories;
+using Domain.PageQuerys;
 using Domain.Querys.History;
 using System.Collections.Generic;
 
@@ -12,9 +14,9 @@ namespace Domain.Services
             ContactRepository = contactRepository;
         }
 
-        public IEnumerable<MovementHistoryQuery> FindCustomerPurchase(long contactId)
+        public IEnumerable<MovementHistoryQuery> FindMovementHistory(HistoryPageQuery query)
         {
-            return ContactRepository.FindCustomerPurchase(contactId);
+            return ContactRepository.FindMovementHistory(query);
         }
     }
 }

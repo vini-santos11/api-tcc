@@ -12,6 +12,6 @@ namespace Domain.Interfaces.Repositories
     {
         Task<PageData<ContactQuery>> FindAllContacts(PageQuery pageQuery);
         AppContact FindByDocumentNumber(string documentNumber);
-        IEnumerable<MovementHistoryQuery> FindCustomerPurchase(long contactId);
+        IEnumerable<MovementHistoryQuery> FindMovementHistory(HistoryPageQuery query);
     }
 }

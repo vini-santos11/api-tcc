@@ -55,7 +55,7 @@ namespace Infra.Repositories
             return QuerySingleOrDefault<AppContact>(sql, new { documentNumber });
         }
 
-        public IEnumerable<MovementHistoryQuery> FindCustomerPurchase(long contactId)
+        public IEnumerable<MovementHistoryQuery> FindMovementHistory(HistoryPageQuery query)
         {
             var sql = new StringBuilder();
             sql.Append(" SELECT pro.Id as ProductId, ");
@@ -65,11 +65,12 @@ namespace Infra.Repositories
             sql.Append("   FROM db_tcc.App_Contact con ");
             sql.Append("  INNER JOIN db_tcc.App_Transaction trn on (con.Id = trn.ContactDestinationId) ");
             sql.Append("  INNER JOIN db_tcc.App_Product pro on (pro.Id = trn.ProductId) ");
-            sql.Append($"  WHERE trn.OperationId = {(int)EOperation.Venda} ");
-            sql.Append("     AND con.Id = @ContactId ");
+            sql.Append($"  WHERE trn.OperationId = {(int)query.Operation} ");
+            if(query.ContactId.HasValue)
+                sql.Append("     AND con.Id = @ContactId ");
             sql.Append("   ORDER BY trn.CreatedAt desc  ");
 
-            return QueryToList<MovementHistoryQuery>(sql, new { contactId }).ToList();
+            return QueryToList<MovementHistoryQuery>(sql, new { query.ContactId }).ToList();
         }
     }
 }
