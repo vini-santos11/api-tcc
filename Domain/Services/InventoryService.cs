@@ -124,7 +124,7 @@ namespace Domain.Services
                     ContactOriginId = userOn,
                     TotalPrice = (product.Price * item.Amount),
                     Amount = item.Amount,
-                    OperationId = command.Operation == EOperation.Venda ? (int)EOperation.Venda : (int)EOperation.Producao,
+                    OperationId = command.Operation == EOperation.Venda ? (int)EOperation.Venda : (int)EOperation.Consumo,
                     ProductId = product.Id
                 });
 
