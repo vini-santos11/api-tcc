@@ -16,5 +16,6 @@
         public static string ContactIsNotLegal { get => "Só é possível compra de fornecedores."; }
         public static string HasNotProduct { get => "Não há um ou mais destes produtos no estoque."; }
         public static string InvalidAmount { get => "Não há esta quantidade de produtos no estoque."; }
+        public static string ImageNotFound { get => "Imagem não encontrada."; }
     }
 }

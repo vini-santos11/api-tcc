@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
+using Domain.Querys;
 using Domain.Querys.Contact;
 using Domain.Querys.History;
 using System.Collections.Generic;
@@ -13,5 +14,6 @@ namespace Domain.Interfaces.Repositories
         Task<PageData<ContactQuery>> FindAllContacts(PageQuery pageQuery);
         AppContact FindByDocumentNumber(string documentNumber);
         IEnumerable<MovementHistoryQuery> FindMovementHistory(HistoryPageQuery query);
+        ImageQuery FindImageContact(long contactId);
     }
 }

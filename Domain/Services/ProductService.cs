@@ -1,9 +1,11 @@
-﻿using Domain.Commands.Product;
+﻿using Domain.Commands;
+using Domain.Commands.Product;
 using Domain.Exceptions;
 using Domain.Interfaces.Repositories;
 using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
+using Domain.Querys;
 using Domain.Querys.Product;
 using System.Threading.Tasks;
 
@@ -26,6 +28,11 @@ namespace Domain.Services
         public AppProduct FindProductById(long id)
         {
             return ProductRepository.Find(id) ?? throw new ValidateException(Messages.ProductNotFound);
+        }
+
+        public ImageQuery GetImageProduct(long productId)
+        {
+            return ProductRepository.GetImageProduct(productId) ?? throw new ValidateException(Messages.ImageNotFound);
         }
 
         public AppProduct CreateProduct(ProductCommand command)
@@ -57,6 +64,16 @@ namespace Domain.Services
 
             ProductRepository.Update(product);
             return product;
+        }
+
+        public void UpdateImageProduct(long id, ImageCommand command)
+        {
+            var product = ProductRepository.Find(id) ?? throw new ValidateException(Messages.ProductNotFound);
+
+            product.ImageName = command.ImageName;
+            product.ImageUrl = command.ImageUrl;
+
+            ProductRepository.Update(product);
         }
 
         public void DeleteProduct(long id)

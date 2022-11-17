@@ -4,6 +4,7 @@ using Domain.Interfaces.Repositories;
 using Domain.Models;
 using Domain.Page.Base;
 using Domain.PageQuerys;
+using Domain.Querys;
 using Domain.Querys.Contact;
 using Domain.Querys.History;
 using Infra.Repositories.Base;
@@ -53,6 +54,18 @@ namespace Infra.Repositories
             sql.Append("  Where con.DocumentNumber = @DocumentNumber ");
 
             return QuerySingleOrDefault<AppContact>(sql, new { documentNumber });
+        }
+
+        public ImageQuery FindImageContact(long contactId)
+        {
+            var sql = new StringBuilder();
+            sql.Append(" Select con.Id, ");
+            sql.Append("        con.ImageName, ");
+            sql.Append("        con.ImageUrl ");
+            sql.Append("   From db_tcc.App_Contact con ");
+            sql.Append("  Where con.Id = @ContactId ");
+
+            return QuerySingleOrDefault<ImageQuery>(sql, new { contactId });
         }
 
         public IEnumerable<MovementHistoryQuery> FindMovementHistory(HistoryPageQuery query)

@@ -1,4 +1,5 @@
-﻿using Domain.Commands.Contact;
+﻿using Domain.Commands;
+using Domain.Commands.Contact;
 using Domain.Commands.User;
 using Domain.Exceptions;
 using Domain.Interfaces.Repositories;
@@ -33,6 +34,11 @@ namespace Domain.Services
         public AppContact FindContactById(long id)
         {
             return ContactRepository.Find(id) ?? throw new ValidateException(Messages.ContactNotFound);
+        }
+
+        public ImageQuery GetImageContact(long contactId)
+        {
+            return ContactRepository.FindImageContact(contactId) ?? throw new ValidateException(Messages.ImageNotFound);
         }
 
         public AppContact FindByDocumentNumber(string documentNumber)
@@ -124,6 +130,16 @@ namespace Domain.Services
             ContactRepository.Update(contact);
 
             return contact;
+        }
+
+        public void UpdateImageContact(long id, ImageCommand command)
+        {
+            var contact = ContactRepository.Find(id) ?? throw new ValidateException(Messages.ContactNotFound);
+
+            contact.ImageName = command.ImageName;
+            contact.ImageUrl = command.ImageUrl;
+
+            ContactRepository.Update(contact);
         }
 
         public void DeleteContact(long id)
