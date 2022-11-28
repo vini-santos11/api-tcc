@@ -33,5 +33,22 @@ namespace Domain.Helpers
             value = OnlyNumber(value);
             return Convert.ToUInt64(RemoveSpecialCharacter(value).PadLeft(14, '0')).ToString(MASK_DOCUMENT);
         }
+
+        public static string ListToText<T>(IEnumerable<T> lista, string separador = ", ", string ultimoSeparador = null)
+        {
+            if ((lista == null) || (lista.Count() == 0))
+                return string.Empty;
+
+            if (typeof(T).IsEnum)
+                return ListToText(lista.Select(i => Convert.ToInt64(i)), separador, ultimoSeparador);
+
+            var texto = string.Join(separador, lista.ToArray());
+
+            var indice = texto.LastIndexOf(separador);
+            if (!string.IsNullOrEmpty(ultimoSeparador) && (indice >= 0))
+                texto = texto.Substring(0, indice) + ultimoSeparador + texto[(indice + separador.Length)..];
+
+            return texto;
+        }
     }
 }

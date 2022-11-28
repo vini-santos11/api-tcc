@@ -41,6 +41,7 @@ namespace Infra.Dapper
 
         public static StringBuilder PaginatedFilter(StringBuilder sqlBuilder, BaseQuery pageQuery, string sortColumn)
         {
+            var offset = pageQuery.Size * (pageQuery.Page - 1);
             var sql = new StringBuilder();
             sql.Append(" Select * ");
             sql.Append($"  From ( {sqlBuilder} ) tab");
@@ -51,7 +52,7 @@ namespace Infra.Dapper
                 sql.Append($"  Order By {sortColumn} ");
 
             if ((pageQuery.Pagination == EPagination.YES) && (pageQuery.Size > 0))
-                sql.Append($"   Offset {pageQuery.Size} * ({pageQuery.Page} - 1) Rows Fetch Next {pageQuery.Size} Rows Only");
+                sql.Append($"   Limit {pageQuery.Size} Offset {offset}");
 
             return sql;
         }

@@ -23,6 +23,9 @@ namespace Cross.Cutting.IoC
 
             services.AddScoped<AuthenticationService>();
             services.AddScoped<ContactService>();
+            services.AddScoped<ProductService>();
+            services.AddScoped<InventoryService>();
+            services.AddScoped<MovementHistoryService>();
         }
 
         public static void AddRepositories(IServiceCollection services)
@@ -33,6 +36,9 @@ namespace Cross.Cutting.IoC
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
         }
     }
 }
