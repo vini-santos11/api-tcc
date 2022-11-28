@@ -71,7 +71,8 @@ namespace Infra.Repositories
         public IEnumerable<MovementHistoryQuery> FindMovementHistory(HistoryPageQuery query)
         {
             var sql = new StringBuilder();
-            sql.Append(" SELECT pro.Id as ProductId, ");
+            sql.Append(" SELECT trn.Id as Id, ");
+            sql.Append("        pro.Id as ProductId,");
             sql.Append("        pro.Name as Product, ");
             sql.Append("        trn.TotalPrice, ");
             sql.Append("        trn.CreatedAt as BuyDate ");
