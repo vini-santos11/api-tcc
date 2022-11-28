@@ -68,7 +68,7 @@ namespace Infra.Repositories
             return QuerySingleOrDefault<ImageQuery>(sql, new { contactId });
         }
 
-        public IEnumerable<MovementHistoryQuery> FindMovementHistory(HistoryPageQuery query)
+        public Task<PageData<MovementHistoryQuery>> FindMovementHistory(HistoryPageQuery query)
         {
             var sql = new StringBuilder();
             sql.Append(" SELECT trn.Id as Id, ");
@@ -84,7 +84,7 @@ namespace Infra.Repositories
                 sql.Append("     AND con.Id = @ContactId ");
             sql.Append("   ORDER BY trn.CreatedAt desc  ");
 
-            return QueryToList<MovementHistoryQuery>(sql, new { query.ContactId }).ToList();
+            return PageData<MovementHistoryQuery>(sql, query, "Product");
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Application.Controllers.Base;
 using Application.Identity;
 using Domain.Enumerables;
+using Domain.Page.Base;
 using Domain.PageQuerys;
 using Domain.Querys.History;
 using Domain.Services;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net.Mime;
+using System.Threading.Tasks;
 
 namespace Application.Controllers
 {
@@ -25,9 +27,9 @@ namespace Application.Controllers
         [HttpGet("operation/history")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
-        public ActionResult<IEnumerable<MovementHistoryQuery>> MovementHistory([FromQuery] HistoryPageQuery query)
+        public async Task<ActionResult<PageData<MovementHistoryQuery>>> MovementHistory([FromQuery] HistoryPageQuery query)
         {
-            return Ok(MovementHistoryService.FindMovementHistory(query));
+            return Ok(await MovementHistoryService.FindMovementHistory(query));
         }
     }
 }

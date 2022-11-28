@@ -1,8 +1,10 @@
 ﻿using Domain.Enumerables;
 using Domain.Interfaces.Repositories;
+using Domain.Page.Base;
 using Domain.PageQuerys;
 using Domain.Querys.History;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Domain.Services
 {
@@ -14,7 +16,7 @@ namespace Domain.Services
             ContactRepository = contactRepository;
         }
 
-        public IEnumerable<MovementHistoryQuery> FindMovementHistory(HistoryPageQuery query)
+        public Task<PageData<MovementHistoryQuery>> FindMovementHistory(HistoryPageQuery query)
         {
             return ContactRepository.FindMovementHistory(query);
         }

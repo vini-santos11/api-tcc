@@ -13,7 +13,7 @@ namespace Domain.Interfaces.Repositories
     {
         Task<PageData<ContactQuery>> FindAllContacts(PageQuery pageQuery);
         AppContact FindByDocumentNumber(string documentNumber);
-        IEnumerable<MovementHistoryQuery> FindMovementHistory(HistoryPageQuery query);
+        Task<PageData<MovementHistoryQuery>> FindMovementHistory(HistoryPageQuery query);
         ImageQuery FindImageContact(long contactId);
     }
 }
