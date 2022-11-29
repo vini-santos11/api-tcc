@@ -74,14 +74,17 @@ namespace Infra.Repositories
             sql.Append(" SELECT trn.Id as Id, ");
             sql.Append("        pro.Id as ProductId,");
             sql.Append("        pro.Name as Product, ");
+            sql.Append("        trn.Amount, ");
             sql.Append("        trn.TotalPrice, ");
+            sql.Append("        concat(con.Name,' ',con.SecondName) as Contact, ");  
             sql.Append("        trn.CreatedAt as BuyDate ");
-            sql.Append("   FROM db_tcc.App_Contact con ");
-            sql.Append("  INNER JOIN db_tcc.App_Transaction trn on (con.Id = trn.ContactDestinationId) ");
+            sql.Append("   FROM db_tcc.App_Transaction trn ");
             sql.Append("  INNER JOIN db_tcc.App_Product pro on (pro.Id = trn.ProductId) ");
+            if(query.Operation == EOperation.Venda || query.Operation == EOperation.Consumo)
+                sql.Append("  LEFT JOIN db_tcc.App_Contact con on (con.Id = trn.ContactDestinationId)" );
+            if (query.Operation == EOperation.Compra || query.Operation == EOperation.Producao)
+                sql.Append("  LEFT JOIN db_tcc.App_Contact con on (con.Id = trn.ContactOriginId)" );
             sql.Append($"  WHERE trn.OperationId = {(int)query.Operation} ");
-            if(query.ContactId.HasValue)
-                sql.Append("     AND con.Id = @ContactId ");
             sql.Append("   ORDER BY trn.CreatedAt desc  ");
 
             return PageData<MovementHistoryQuery>(sql, query, "Product");
