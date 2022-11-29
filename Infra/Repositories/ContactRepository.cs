@@ -85,6 +85,8 @@ namespace Infra.Repositories
             if (query.Operation == EOperation.Compra || query.Operation == EOperation.Producao)
                 sql.Append("  LEFT JOIN db_tcc.App_Contact con on (con.Id = trn.ContactOriginId)" );
             sql.Append($"  WHERE trn.OperationId = {(int)query.Operation} ");
+            if (query.ContactId.HasValue)
+                sql.Append($" AND con.Id = {query.ContactId}");
             sql.Append("   ORDER BY trn.CreatedAt desc  ");
 
             return PageData<MovementHistoryQuery>(sql, query, "Product");
