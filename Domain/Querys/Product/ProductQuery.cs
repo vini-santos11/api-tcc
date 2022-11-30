@@ -14,6 +14,7 @@ namespace Domain.Querys.Product
         public string DefaultMeansurement { get; set; }
         [Excel(ColumnTitle = "Preço", IsCurrency = true, Decimals = 2)]
         public decimal Price { get; set; }
+        public decimal Amount { get; set; }
         public string ImageName { get; set; }
         public int? CreatedBy { get; set; }
         public DateTime? CreatedAt { get; set; }

@@ -21,11 +21,13 @@ namespace Infra.Repositories
         public Task<PageData<ProductQuery>> FindAllProducts(PageQuery pageQuery)
         {
             var sql = new StringBuilder();
-            sql.Append(" Select * ");
-            sql.Append("   From App_Product pro "); 
+            sql.Append(" Select pro.*, ");
+            sql.Append("        inv.Amount ");
+            sql.Append("   From App_Product pro ");
+            sql.Append("   Left Join App_Inventory inv on (inv.ProductId = pro.Id) ");
             sql.Append("  Where (pro.Description Like @Query Or ");
-            sql.Append("         pro.DefaultMeansurement Like @Query Or ");
-            sql.Append("         pro.Price Like @Query) ");
+            sql.Append("        pro.DefaultMeansurement Like @Query Or ");
+            sql.Append("        pro.Price Like @Query) ");
 
             return PageData<ProductQuery>(sql, pageQuery, "Description");
         }
