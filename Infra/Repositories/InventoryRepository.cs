@@ -38,7 +38,7 @@ namespace Infra.Repositories
             sql.Append("        inv.UpdatedAt as LastUpdate ");
             sql.Append("   FROM db_tcc.App_Inventory inv ");
             sql.Append("  INNER JOIN db_tcc.App_Product pro on (pro.Id = inv.ProductId) ");
-            sql.Append("  WHERE pro.Name like @Query ");
+            sql.Append("  WHERE pro.Name like @Querys ");
 
             return PageData<InventoryQuery>(sql, pageQuery, "Name");
         }
