@@ -25,9 +25,9 @@ namespace Infra.Repositories
             sql.Append("        inv.Amount ");
             sql.Append("   From App_Product pro ");
             sql.Append("   Left Join App_Inventory inv on (inv.ProductId = pro.Id) ");
-            sql.Append("  Where (pro.Description Like @Query Or ");
-            sql.Append("        pro.DefaultMeansurement Like @Query Or ");
-            sql.Append("        pro.Price Like @Query) ");
+            sql.Append("  Where (pro.Description Like @Querys Or ");
+            sql.Append("        pro.DefaultMeansurement Like @Querys Or ");
+            sql.Append("        pro.Price Like @Querys) ");
 
             return PageData<ProductQuery>(sql, pageQuery, "Description");
         }

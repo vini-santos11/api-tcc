@@ -8,8 +8,7 @@ namespace Domain.PageQuerys.Base
     public class BaseQuery
     {
         private string _query = string.Empty;
-
-        public string Query { get => ConcatQuery(_query); set => _query = value; }
+        public string Querys { get => ConcatQuery(_query); set => _query = value; }
         public string Order { get; set; } = string.Empty;
         public int Page { get; set; } = 1;
         public int Size { get; set; } = 10;
