@@ -3,9 +3,13 @@
 ## API - CONTROLE DE ESTOQUE PARA PEQUENAS/MÉDIAS EMPRESAS
 
 O projeto disponibila uma API Restful que permite acesso a requisições para utilização do front-end ou de outras integrações externas.
+
 A API foi desenvolvida em .NET na versão 5.0, utilizando como micro-ORM o DAPPER para persistencia de dados no banco de dados (o qual foi escolhido o MYSQL). E na arquitetura de software, utilizamos o Repository Pattern.
+
 A Autenticação do sistema foi desenvolvido utilizando Bearer e JWT através de packages do NUGET, o qual garantiu algumas funcionalidades para controle de segurança, e criação de features como Roles.
+
 As Roles ja implementadas são ADMINISTRADOR e USUÁRIO, dessas, apenas a ADMINISTRADOR foi utilizada para o front-end, onde criamos o portal para gerenciamento do estoque. Com essa feature, é possível implementar outros sistemas, tal qual Marketplace, E-Commerce entre outros.
+
 A passagem de parametros, tanto exeterna, quanto intermanente foi utilizado o Design Pattern CQRS.
 
 A documentaçao completa, com dados dos endpoints esta feita em Swagger.
