@@ -38,10 +38,10 @@ namespace Infra.Repositories
             sql.Append("       con.ImageName ");
             sql.Append("  FROM db_tcc.App_Contact con ");
             sql.Append(" Inner Join App_PersonType pty on (pty.Id = con.PersonTypeId) ");
-            sql.Append(" Where (pty.Description Like @Query Or ");
-            sql.Append("        con.Name Like @Query Or ");
-            sql.Append("        con.DocumentNumber Like @Query Or ");
-            sql.Append("        con.Email Like @Query)");
+            sql.Append(" Where (pty.Description Like @Querys Or ");
+            sql.Append("        con.Name Like @Querys Or ");
+            sql.Append("        con.DocumentNumber Like @Querys Or ");
+            sql.Append("        con.Email Like @Querys)");
 
             return PageData<ContactQuery>(sql, pageQuery, "Name");
         }
@@ -82,14 +82,16 @@ namespace Infra.Repositories
             sql.Append("  INNER JOIN db_tcc.App_Product pro on (pro.Id = trn.ProductId) ");
             if(query.Operation == EOperation.Venda || query.Operation == EOperation.Consumo)
                 sql.Append("  LEFT JOIN db_tcc.App_Contact con on (con.Id = trn.ContactDestinationId)" );
-            if (query.Operation == EOperation.Compra || query.Operation == EOperation.Producao)
+            else
                 sql.Append("  LEFT JOIN db_tcc.App_Contact con on (con.Id = trn.ContactOriginId)" );
             sql.Append($"  WHERE trn.OperationId = {(int)query.Operation} ");
+            sql.Append("     AND (pro.Name like @Querys Or ");
+            sql.Append("          con.Name like @Querys Or ");
+            sql.Append("          con.SecondName like @Querys) ");
             if (query.ContactId.HasValue)
                 sql.Append($" AND con.Id = {query.ContactId}");
-            sql.Append("   ORDER BY trn.CreatedAt desc  ");
 
-            return PageData<MovementHistoryQuery>(sql, query, "Product");
+            return PageData<MovementHistoryQuery>(sql, query, "BuyDate desc");
         }
     }
 }
