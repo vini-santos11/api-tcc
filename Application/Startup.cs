@@ -108,7 +108,7 @@ namespace Application
 
             #endregion
 
-             services.AddMvc(options =>
+            services.AddMvc(options =>
             {
                 options.RespectBrowserAcceptHeader = false;
                 options.ReturnHttpNotAcceptable = true;
@@ -129,12 +129,13 @@ namespace Application
             services.AddServicesAndRepositories();
 
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo 
-                { 
-                    Title = "Application", 
-                    Version = "v1" ,
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Application",
+                    Version = "v1",
                     Description = "API TCC Documentation"
                 });
 
