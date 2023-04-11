@@ -108,7 +108,7 @@ namespace Application
 
             #endregion
 
-             services.AddMvc(options =>
+            services.AddMvc(options =>
             {
                 options.RespectBrowserAcceptHeader = false;
                 options.ReturnHttpNotAcceptable = true;
@@ -129,12 +129,13 @@ namespace Application
             services.AddServicesAndRepositories();
 
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo 
-                { 
-                    Title = "Application", 
-                    Version = "v1" ,
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Application",
+                    Version = "v1",
                     Description = "API TCC Documentation"
                 });
 
@@ -197,7 +198,8 @@ namespace Application
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Application v1"));
             }
 
-            var connectionString = Configuration.GetConnectionString("Connection");
+            //var connectionString = Configuration.GetConnectionString("Connection");
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
             EnsureDatabase.For.MySqlDatabase(connectionString);
             var upgrader = DeployChanges.To.MySqlDatabase(connectionString)
                 .WithScriptsFromFileSystem(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Scripts"))
