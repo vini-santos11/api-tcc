@@ -1,3 +1,5 @@
+using System.IO;
+using dotenv.net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -7,6 +9,8 @@ namespace Application
     {
         public static void Main(string[] args)
         {
+            var envFilePath = Path.Combine(Directory.GetCurrentDirectory(), "..", ".env");
+            DotEnv.Load(options: new DotEnvOptions(envFilePaths: new[] { envFilePath }));
             CreateHostBuilder(args).Build().Run();
         }
 

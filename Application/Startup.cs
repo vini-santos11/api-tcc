@@ -22,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -107,14 +108,14 @@ namespace Application
 
             #endregion
 
-             services.AddMvc(options =>
+            services.AddMvc(options =>
             {
                 options.RespectBrowserAcceptHeader = false;
                 options.ReturnHttpNotAcceptable = true;
             })
             .AddJsonOptions(options =>
             {
-                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
                 options.JsonSerializerOptions.Converters.Add(new StringConverter());
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
@@ -128,12 +129,13 @@ namespace Application
             services.AddServicesAndRepositories();
 
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo 
-                { 
-                    Title = "Application", 
-                    Version = "v1" ,
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Application",
+                    Version = "v1",
                     Description = "API TCC Documentation"
                 });
 
@@ -196,7 +198,8 @@ namespace Application
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Application v1"));
             }
 
-            var connectionString = Configuration.GetConnectionString("Connection");
+            //var connectionString = Configuration.GetConnectionString("Connection");
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
             EnsureDatabase.For.MySqlDatabase(connectionString);
             var upgrader = DeployChanges.To.MySqlDatabase(connectionString)
                 .WithScriptsFromFileSystem(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Scripts"))

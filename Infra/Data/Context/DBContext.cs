@@ -12,9 +12,9 @@ namespace Infra.Data.Context
     {
         public IDbConnection Connection { get; }
 
-        public DBContext(IConfiguration config)
+        public DBContext()
         {
-            Connection = new MySqlConnection(config.GetConnectionString("Connection"));
+            Connection = new MySqlConnection(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
             Connection.Open();
         }
 
