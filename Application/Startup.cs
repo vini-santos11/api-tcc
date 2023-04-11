@@ -1,4 +1,5 @@
-﻿using Application.Converters;
+﻿using Application.AutoMapper;
+using Application.Converters;
 using Application.Identity;
 using Application.Middlewares;
 using Cross.Cutting.Identity.Describers;
@@ -129,6 +130,7 @@ namespace Application
             services.AddServicesAndRepositories();
 
             services.AddControllers();
+            services.AddAutoMapperSetup();
 
             services.AddSwaggerGen(c =>
             {

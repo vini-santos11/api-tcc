@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CrossCutting.Configurations
 {
@@ -11,7 +12,7 @@ namespace CrossCutting.Configurations
 
         public SecurityKey AccessKey
         {
-            get => new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(Key));
+            get => new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Key));
         }
 
         public SigningCredentials SigningCredentials
