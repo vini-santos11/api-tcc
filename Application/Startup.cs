@@ -198,7 +198,8 @@ namespace Application
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Application v1"));
             }
 
-            var connectionString = Configuration.GetConnectionString("Connection");
+            //var connectionString = Configuration.GetConnectionString("Connection");
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
             EnsureDatabase.For.MySqlDatabase(connectionString);
             var upgrader = DeployChanges.To.MySqlDatabase(connectionString)
                 .WithScriptsFromFileSystem(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Scripts"))
