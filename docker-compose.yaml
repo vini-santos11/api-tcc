@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mysql:
+    image: mysql:8-oracle
+    environment:
+      MYSQL_DATABASE: erp
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: "cN5Tp3gS5P*C"
+      MYSQL_ROOT_PASSWORD: "54V95cf^Nsd!pkz95%5e8M"
+    volumes:
+      - mysql-erp:/var/lib/mysql
+    ports:
+      - 3306:15306
+  api:
+    image: mcr.microsoft.com/dotnet/sdk
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: dotnet publish -c Release
+
+volumes:
+  mysql-erp:
